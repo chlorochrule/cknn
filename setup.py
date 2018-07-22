@@ -17,6 +17,7 @@ setup(
     author='Naoto MINAMI',
     author_email='minami.polly@gmail.com',
     url='https://github.com/chlorochrule/cknn',
+    install_requires=['numpy', 'scipy'],
     license=license,
     packages=find_packages(exclude=('examples'))
 )
