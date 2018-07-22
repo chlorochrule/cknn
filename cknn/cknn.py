@@ -7,7 +7,7 @@ from scipy.spatial.distance import pdist, squareform
 
 def cknneighbors_graph(X, n_neighbors=5, sigma=1.0, metric='euclidean',
                        t='inf', include_self=True):
-    if n_neighbors < 1 or n_neighbors-1 > X.shape[0]:
+    if n_neighbors < 1 or n_neighbors > X.shape[0]-1:
         raise Exception("Invalid number of neighbors")
 
     dist = pdist(X, metric=metric)
