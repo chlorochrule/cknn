@@ -14,7 +14,7 @@ def laplacian_eigenmaps(data, n_neighbors=5):
     model_cknn = SpectralEmbedding(n_components=2, affinity='precomputed')
     model_normal = SpectralEmbedding(n_components=2, n_neighbors=n_neighbors)
     
-    neighbors = cknneighbors_graph(data, n_neighbors=n_neighbors, sigma=0.2, 
+    neighbors = cknneighbors_graph(data, n_neighbors=n_neighbors, delta=0.2, 
                                    metric='euclidean', t='inf',
                                    include_self=True)
     y_cknn = model_cknn.fit_transform(neighbors.toarray())
