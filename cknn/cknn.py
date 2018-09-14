@@ -10,7 +10,7 @@ def cknneighbors_graph(X, n_neighbors=5, sigma=1.0, metric='euclidean',
     if n_neighbors < 1 or n_neighbors > X.shape[0]-1:
         raise Exception("Invalid number of neighbors")
 
-    dist = pdist(X, metric=metric)
+    dist = pdist(X, metric=metric) if metric != 'precomputed' else X
     dmatrix = squareform(dist)
     sorted_dmatrix = np.sort(dmatrix)
     nnei_dists = sorted_dmatrix[:, [n_neighbors]]
