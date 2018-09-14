@@ -6,7 +6,7 @@ from scipy.spatial.distance import pdist, squareform
 
 
 def cknneighbors_graph(X, n_neighbors=5, sigma=1.0, metric='euclidean',
-                       t='inf', include_self=True):
+                       t='inf', include_self=True, is_sparse=False):
     if n_neighbors < 1 or n_neighbors > X.shape[0]-1:
         raise Exception("Invalid number of neighbors")
 
@@ -21,12 +21,16 @@ def cknneighbors_graph(X, n_neighbors=5, sigma=1.0, metric='euclidean',
         adjacency[np.eye(adjacency.shape[0], dtype=int)] = False
 
     if t == 'inf':
-        return csr_matrix(adjacency*1)
+        neigh = adjacency*1
     else:
         dmatrix[adjacency] = np.exp(np.power(dmatrix[adjacency], 2)/t)
         dmatrix[np.invert(adjacency)] = 0.
-        return csr_matrix(dmatrix)
+        neigh = dmatrix
 
+    if is_sparse:
+        return csr_matrix(neigh)
+    else:
+        return neigh
 
 def main():
     data = np.arange(40).reshape(20, -1)
