@@ -18,7 +18,7 @@ def cknneighbors_graph(X, n_neighbors=5, delta=1.0, metric='euclidean',
     adjacency = dmatrix < eps_matrix
 
     if not include_self:
-        adjacency[np.eye(adjacency.shape[0], dtype=int)] = False
+        adjacency[np.eye(adjacency.shape[0], dtype=bool)] = False
 
     if t == 'inf':
         neigh = adjacency*1
