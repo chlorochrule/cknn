@@ -33,8 +33,9 @@ def cknneighbors_graph(X, n_neighbors=5, delta=1.0, metric='euclidean',
         return neigh
 
 def main():
-    data = np.arange(40).reshape(20, -1)
-    result = cknneighbors_graph(data, n_neighbors=3, delta=0.5)
+    np.random.seed(1)
+    data = np.random.randn(20, 2)
+    result = cknneighbors_graph(data, n_neighbors=7, delta=1.0)
     print(type(result))
     print(result)
 
