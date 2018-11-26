@@ -1,3 +1,5 @@
 # -*- coding: utf-8 -*-
 
 from .cknn import cknneighbors_graph
+
+__all__ = ['cknneighbors_graph']
