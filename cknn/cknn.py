@@ -4,10 +4,12 @@ import numpy as np
 from scipy.sparse import csr_matrix, lil_matrix
 from scipy.spatial.distance import pdist, squareform
 from scipy.sparse.csgraph import connected_components
+from sklearn.utils import check_array
 from sklearn.neighbors import kneighbors_graph, radius_neighbors_graph
 from networkx import has_path
 import numba
 
+INF = 1.0e308
 
 @numba.jit
 def concat_cluster(prev_dmatrix, n_components, labels, prev_indices=None):
@@ -15,13 +17,14 @@ def concat_cluster(prev_dmatrix, n_components, labels, prev_indices=None):
         raise ValueError("`prev_dmatrix` must be square matrix")
 
     next_dmatrix = np.empty((n_components, n_components), dtype=np.float)
+    next_indices = None
     if prev_indices:
         next_indices = np.empty((n_components, n_components, 2), dtype=np.int)
     arange = np.arange(n_components)
     for i in arange:
         for j in arange:
             if i == j:
-                next_dmatrix[i][j] = np.inf
+                next_dmatrix[i][j] = INF
             else:
                 cropped_dmatrix = prev_dmatrix[labels == i][:, labels == j]
                 d_argmin = np.argmin(cropped_dmatrix)
@@ -60,7 +63,11 @@ def cut_rng(rng, k, critical_conn):
 
 @numba.jit
 def connect_rng(dmatrix, radius, minimize=False, same_nbrs=False, verbose=0):
+    dmatrix = check_array(dmatrix)
     rng = radius_neighbors_graph(dmatrix, radius, metric='precomputed')
+    indices = None
+    rng_orig = None
+    rng_minimize = None
     if minimize:
         rng_orig = rng
         rng_minimize = lil_matrix(rng.shape)
@@ -102,7 +109,6 @@ def connect_rng(dmatrix, radius, minimize=False, same_nbrs=False, verbose=0):
     else:
         return radius_neighbors_graph(dmatrix, radius, metric='precomputed')
 
-@numba.jit
 def cknneighbors_graph(X, n_neighbors, neighbors='delta', delta=None,
                        k=None, metric='euclidean', t='inf',
                        include_self=False, is_sparse=True, directed=False,
@@ -139,6 +145,9 @@ def cknneighbors_graph(X, n_neighbors, neighbors='delta', delta=None,
             elif conn_type == 'force':
                 adjacency = connect_rng(ratio_matrix, delta, minimize=True,
                                         verbose=verbose)
+            else:
+                raise ValueError("Invalid argument `conn_type={}`"
+                                 .format(conn_type))
         else:
             adjacency = radius_neighbors_graph(ratio_matrix, delta,
                                                metric='precomputed')
@@ -155,6 +164,9 @@ def cknneighbors_graph(X, n_neighbors, neighbors='delta', delta=None,
                 adjacency = connect_rng(argsorted_ratio_matrix, k,
                                         minimize=True, same_nbrs=True,
                                         verbose=verbose)
+            else:
+                raise ValueError("Invalid argument `conn_type={}`"
+                                 .format(conn_type))
         else:
             adjacency = kneighbors_graph(ratio_matrix, k, metric='precomputed')
         if not directed:
