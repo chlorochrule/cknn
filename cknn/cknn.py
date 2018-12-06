@@ -59,7 +59,7 @@ def cut_rng(rng, k, critical_conn):
     return rng_conn
 
 @numba.jit
-def connect_rng(dmatrix, radius, minimize=False, same_nbrs=False):
+def connect_rng(dmatrix, radius, minimize=False, same_nbrs=False, verbose=0):
     rng = radius_neighbors_graph(dmatrix, radius, metric='precomputed')
     if minimize:
         rng_orig = rng
@@ -91,6 +91,9 @@ def connect_rng(dmatrix, radius, minimize=False, same_nbrs=False):
                                          metric='precomputed')
         n_components, labels = connected_components(rng)
 
+    if verbose == 1:
+        print("Log: radius={}".format(radius))
+
     if minimize:
         if minimize:
             return cut_rng(rng_orig, radius, rng_minimize)
@@ -103,7 +106,7 @@ def connect_rng(dmatrix, radius, minimize=False, same_nbrs=False):
 def cknneighbors_graph(X, n_neighbors, neighbors='delta', delta=None,
                        k=None, metric='euclidean', t='inf',
                        include_self=False, is_sparse=True, directed=False,
-                       connected=False, conn_type='nature'):
+                       connected=False, conn_type='nature', verbose=0):
 
     if n_neighbors < 1 or n_neighbors > X.shape[0]-1:
         raise ValueError("Invalid argument `n_neighbors={}`"
@@ -131,7 +134,11 @@ def cknneighbors_graph(X, n_neighbors, neighbors='delta', delta=None,
             ValueError("Invalid argument `delta={}`, or not passed delta"
                        .format(k))
         if connected:
-            adjacency = connect_rng(ratio_matrix, delta)
+            if conn_type == 'nature':
+                adjacency = connect_rng(ratio_matrix, delta, verbose=verbose)
+            elif conn_type == 'force':
+                adjacency = connect_rng(ratio_matrix, delta, minimize=True,
+                                        verbose=verbose)
         else:
             adjacency = radius_neighbors_graph(ratio_matrix, delta,
                                                metric='precomputed')
@@ -141,7 +148,13 @@ def cknneighbors_graph(X, n_neighbors, neighbors='delta', delta=None,
                        .format(k))
         if connected:
             argsorted_ratio_matrix = np.argsort(ratio_matrix)
-            adjacency = connect_rng(argsorted_ratio_matrix, k)
+            if conn_type == 'nature':
+                adjacency = connect_rng(argsorted_ratio_matrix, k,
+                                        verbose=verbose)
+            elif conn_type == 'force':
+                adjacency = connect_rng(argsorted_ratio_matrix, k,
+                                        minimize=True, same_nbrs=True,
+                                        verbose=verbose)
         else:
             adjacency = kneighbors_graph(ratio_matrix, k, metric='precomputed')
         if not directed:
