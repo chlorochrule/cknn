@@ -187,9 +187,9 @@ class CkNearestNeighbors(object):
         ratio_matrix[cr_ptr, cr_ptr] = 0
 
         if neighbors == 'delta':
-            if not delta:
+            if delta is None:
                 ValueError("Invalid argument `delta={}`, or not passed delta"
-                        .format(k))
+                        .format(delta))
             if connected:
                 if conn_type == 'nature':
                     adjacency = self.connect_rng(ratio_matrix, delta, verbose=verbose)
@@ -201,7 +201,7 @@ class CkNearestNeighbors(object):
                                     .format(conn_type))
             else:
                 adjacency = radius_neighbors_graph(ratio_matrix, delta,
-                                                metric='precomputed')
+                                                   metric='precomputed')
         elif neighbors == 'k':
             if not k:
                 ValueError("Invalid argument `k={}`, or not passed k"
@@ -217,7 +217,7 @@ class CkNearestNeighbors(object):
                     adjacency = self.connect_rng(order_matrix, k, verbose=verbose)
                 elif conn_type == 'force':
                     adjacency = self.connect_rng(order_matrix, k, minimize=True,
-                                            same_nbrs=True, verbose=verbose)
+                                                 same_nbrs=True, verbose=verbose)
                 else:
                     raise ValueError("Invalid argument `conn_type={}`"
                                     .format(conn_type))
