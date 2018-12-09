@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 
-import numpy as np
+try:
+    import cupy as np
+except ImportError as e:
+    import numpy as np
 from scipy.sparse import csr_matrix, lil_matrix
 from scipy.spatial.distance import pdist, squareform
 from scipy.sparse.csgraph import connected_components
