@@ -183,9 +183,6 @@ class CkNearestNeighbors(object):
 
         darray_n_nbrs = np.partition(dmatrix, n_neighbors)[:, [n_neighbors]]
         ratio_matrix = dmatrix / np.sqrt(darray_n_nbrs.dot(darray_n_nbrs.T))
-        if verbose == 1:
-            print("ratio matrix is, ")
-            print(ratio_matrix)
         cr_ptr = np.arange(n_samples)
         ratio_matrix[cr_ptr, cr_ptr] = 0
 
