@@ -181,7 +181,7 @@ class CkNearestNeighbors(object):
             dist = pdist(X, metric=metric)
             dmatrix = squareform(dist)
 
-        darray_n_nbrs = np.partition(dmatrix, n_neighbors)
+        darray_n_nbrs = np.partition(dmatrix, n_neighbors)[:, [n_neighbors]]
         ratio_matrix = dmatrix / np.sqrt(darray_n_nbrs.dot(darray_n_nbrs.T))
         cr_ptr = np.arange(n_samples)
         ratio_matrix[cr_ptr, cr_ptr] = 0
