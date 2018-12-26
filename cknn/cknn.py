@@ -220,7 +220,7 @@ class CkNearestNeighbors(object):
                                                  same_nbrs=True, verbose=verbose)
                 else:
                     raise ValueError("Invalid argument `conn_type={}`"
-                                    .format(conn_type))
+                                     .format(conn_type))
             else:
                 adjacency = kneighbors_graph(ratio_matrix, k, metric='precomputed')
             if not directed:
