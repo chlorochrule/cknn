@@ -7,8 +7,6 @@ except ImportError:
 from scipy.sparse import csr_matrix
 from scipy.spatial.distance import pdist, squareform
 
-INF = 1.0e308
-
 
 def cknneighbors_graph(X, n_neighbors, delta=1.0, metric='euclidean', t='inf',
                        include_self=False, is_sparse=True, 
