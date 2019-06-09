@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 
-try:
-    import cupy as np
-except ImportError:
-    import numpy as np
+import numpy as np
 from scipy.sparse import csr_matrix
 from scipy.spatial.distance import pdist, squareform
 
