@@ -6,6 +6,8 @@ This is a Python implementation of Continuous k-Nearest Neighbors(CkNN)
 proposed in the paper 'Consistent Manifold Representation for Topological Data 
 Analysis' (https://arxiv.org/pdf/1606.02353.pdf)
 
+[![license](http://img.shields.io/badge/license-BSD-blue.svg?style=flat)](https://github.com/chlorochrule/cknn/blob/master/LICENSE)
+
 ## Installation
 
 This package only depends on [numpy](http://www.numpy.org/) and 
