@@ -1,0 +1,4 @@
+include *.md
+include *.py
+recursive-include cknn *.py
+include LICENSE
