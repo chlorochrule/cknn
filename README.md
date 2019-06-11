@@ -24,7 +24,7 @@ $ pip install git+https://github.com/chlorochrule/cknn
 ```python
 from cknn import cknneighbors_graph
 
-ckng = cknneighbors_graph(data, n_neighbors=5, delta=1.0)
+ckng = cknneighbors_graph(X, n_neighbors=5, delta=1.0)
 ```
 
 ## License
