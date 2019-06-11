@@ -8,6 +8,6 @@ Reference
        topological dataanalysis,” 2016.
 """
 
-from .cknn import cknneighbors_graph, connect_rng
+from .cknn import cknneighbors_graph, CkNearestNeighbors
 
-__all__ = ['cknneighbors_graph', 'connect_rng']
+__all__ = ['cknneighbors_graph', 'CkNearestNeighbors']
