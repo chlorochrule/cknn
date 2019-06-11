@@ -21,6 +21,38 @@ def cknneighbors_graph(X, n_neighbors, delta=1.0, metric='euclidean', t='inf',
 
 
 class CkNearestNeighbors(object):
+    """This object provides the all logic of CkNN.
+
+    Args:
+        n_neighbors: int, optional, default=5
+            Number of neighbors to estimate the density around the point.
+            It appeared as a parameter `k` in the paper.
+
+        delta: float, optional, default=1.0
+            A parameter to decide the radius for each points. The combination
+            radius increases in proportion to this parameter.
+
+        metric: str, optional, default='euclidean'
+            The metric of each points. This parameter depends on the parameter
+            `metric` of scipy.spatial.distance.pdist.
+
+        t: 'inf' or float or int, optional, default='inf'
+            The decay parameter of heat kernel. The weights are calculated as
+            follow:
+
+                W_{ij} = exp(-(||x_{i}-x_{j}||^2)/t)
+
+            For more infomation, read the paper 'Laplacian Eigenmaps for 
+            Dimensionality Reduction and Data Representation', Belkin, et. al.
+
+        include_self: bool, optional, default=True
+            All diagonal elements are 1.0 if this parameter is True.
+
+        is_sparse: bool, optional, default=True
+            The method `cknneighbors_graph` returns csr_matrix object if this
+            parameter is True else returns ndarray object.
+    """
+
     def __init__(self, n_neighbors=5, delta=1.0, metric='euclidean', t='inf', 
                  include_self=False, is_sparse=True):
         self.n_neighbors = n_neighbors
@@ -32,6 +64,16 @@ class CkNearestNeighbors(object):
         self.ckng = None
 
     def cknneighbors_graph(self, X):
+        """A method to calculate the CkNN graph
+        
+        Args:
+            X: ndarray
+                The data matrix.
+
+        return: csr_matrix (if self.is_sparse is True)
+                or ndarray(if self.is_sparse is False)
+        """
+
         n_neighbors = self.n_neighbors
         delta = self.delta
         metric = self.metric
@@ -86,16 +128,3 @@ class CkNearestNeighbors(object):
 
         return self.ckng
 
-
-def main():
-    np.random.seed(1)
-    data = np.random.randn(20, 2)
-    result = cknneighbors_graph(data, n_neighbors=7, delta=1.0,
-                                metric='euclidean', t='inf',
-                                include_self=True, is_sparse=False, 
-                                return_instance=False)
-    print(type(result))
-    print(result)
-
-if __name__ == '__main__':
-    main()
