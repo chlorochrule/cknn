@@ -12,7 +12,7 @@ python:
     - 3.7
 
 install:
-    pip install numpy scipy scikit-learn
+    pip install numpy scipy scikit-learn matplotlib seaborn
 
 script:
     python setup.py test
