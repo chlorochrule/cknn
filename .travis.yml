@@ -5,17 +5,17 @@ language: python
 sudo: false
 
 branches:
-    only:
-        - master
+  only:
+    - master
 
 python:
-    - 3.5
-    - 3.6
-    - 3.7
+  - 3.5
+  - 3.6
+  - 3.7
 
 install:
-    pip install numpy scipy scikit-learn matplotlib seaborn
+  pip install numpy scipy scikit-learn matplotlib seaborn
 
 script:
-    python setup.py test &&
-    pip install git+https://github.com/chlorochrule/cknn
+  python setup.py test &&
+  pip install git+https://github.com/chlorochrule/cknn
