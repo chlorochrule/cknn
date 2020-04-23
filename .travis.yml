@@ -10,7 +10,6 @@ env:
 jobs:
   include:
   - stage: Tests
-    name: Test by tox
   - python: 3.6
     env: TOXENV=py36
     install: &install
