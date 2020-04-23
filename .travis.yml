@@ -4,7 +4,9 @@ dist: xenial
 branches:
   only:
   - master
-env: 
+env:
+  global:
+    secure: tvfUP60xgdgWQPQx+/wI9iIlV9rxQRy2JXvdK/L/uSmwACK/KwKLu6vaaD1X2L8KEcecPrnzQNjER0Trwn/uS7pj7sMbH25keJFj1RGEu3BR1vkVVceRntqpyom62gN4gG8NPuNR+zvfayR+UQSrVxc5/hk9xZ0PnTwoavkO3SJpsoYNEyVLYvSBQqagyBAECN14JQQYcn+Qt9VfAdvSQTnsLtr/VTOjXDkjkZES4jBRBj/L4WJ7chAkS0zYZ2UT06DUc+6rCz6BEvnvryTjJh/vrWFNI0/O8YbZZHuSHeF0ygp1LvqPj4/OXHENDWqDxST+RtJiV+2yqBlk3+57b3Mo6J9RCgu0MPWSx6yXsHPWHCS42FudJJvW86xyqJAzBeUuNJk1S7HfGePmOimnWyZSGmuWWG1DvNyPMqskb7De9+zqj1cSKwM5Th8QfF+KsO/JD5l0To5U+EyEgMYTS8bCc7jZMPIDwZN6rjgqLGGu7avXs9qhSEawU2fO/a45z8lsevFbXa81eiIfqNk2EP2ZSUd77x6S7GtLD2smXccdFq+8Ai5hE+PN0g1ERs133cho2up4+tYQXMNhiTfspCy8QsJPmQgfwWg4kaZKgN/sArs7Y7mRa1JLmXhfqYMHXOvrK2tcWh2jvw8jMJ9fjrHf7HNQ3wbbZ25r3ZVad4M=
 jobs:
   include:
   - stage: Tests
@@ -23,9 +25,8 @@ jobs:
     script: *2
   - stage: Deploy
     python: 3.7
-    env:
-    - secure: "P0ONQXbQC/KNf1keO1IWV23mOkDpdd0SZZ1Uo6q4Zn8xgSniTwH0Xf0PHZtRC7iFRLkdJFLC9FS1HGxESWqwBU0YMqiN5q2LwaOQoFGCHwtlHeSXm1KjlSf9nCgaVhM3gyzA4JfTUyUcRfiTUznbpFQbJhhHUjLHhstb9H5FPfj++KpckeUTXNgpnL8pLJZLKx2UoKv/t82srkWCmAJq/a70XNNQWLGjf817D6OWzO1c9t+bpYzOAIaLgESHMPWiNQK4okTJOW06R+QmxS388Jf21qMWVfF2cTyiVNy+RfwzI1AyXen012usYFw55ZUroNPbdOSmV9APgTQPjWoYIpAATbwV9pnygKnnMBDohbC2l4dASZ6rxFdaAJ2iR0Kz6k7tcSKPS2vrUhp5iAuqW8j4Qa4HzXAErPv+bvXy4Y2i6DoQ/ytMdehBYYBUeDejdfcXrnCNwfE3WeLBzw4/ZWudoJ2WLrTkYusaiGhf7VYxV8e7YfdGus5ztk6/0Kt2vSCCaGCgQyirAg1xriYqcix3+UELg82lNprpqrwgBEnH0RBhBnhxJk6+MHcBJ51jji6G0EikD/rzXhamX6D93FByz+xnhBMOq7qBuUVq0V8AIjKZn2YgVMvJBYA0lVH+7We2h6aRPeW1y4Dvg+D2btMOpMpbYvE5yw7n26e5SmM="
     install:
     - pip install sphinx sphinx_rtd_theme
     script:
-    - '[ "$TRAVIS_BRANCH" == master ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && source ./deploy.sh'
+    - '[ "$TRAVIS_BRANCH" == master ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] &&
+      source ./deploy.sh'
