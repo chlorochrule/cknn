@@ -9,13 +9,12 @@ branches:
     - master
 
 python:
-  - 3.5
   - 3.6
   - 3.7
 
 install:
-  pip install numpy scipy scikit-learn matplotlib seaborn
+  pip install tox numpy scipy scikit-learn matplotlib seaborn
 
 script:
-  python setup.py test &&
+  tox &&
   pip install git+https://github.com/chlorochrule/cknn
