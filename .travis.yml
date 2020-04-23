@@ -5,23 +5,25 @@ branches:
   only:
   - master
 env:
-  global:
-  - secure: PQ5k5M4LSCMMxNWFkViVTHNjDRDE+khcFFuRhM2FgYGm9S+HdA6HBkcxPYWP/zcVF0531HeMR7+HIB7axbzvA3ZPnnEOTr36Al7GufTEeP+dJ4yp35Ydj9H41jAk/VOoXwyhV86EYTQjP5lyDnWQe6BBoxh0DHuWfGz/HMj6rXO18dRIBLTOc0rqthsOMUFydCrhabJaR9eD8OnGy46H805RULNsCK/6hhBHthCthq6XsTP1OuaAkQDUGzUiN7Fj4UJBX4axOw5uhuKNz0sG6dTCLgxlDFcpib65YFzb9c7RgORbSXcSFtqPwufZpxa9DlOJsPXypyDYf50JlFIEpl9hvmHWe17GrrFuurT5IHRbPa6lAm/bWDd2z6sS3TaxdzxEQ9O3yyWra0MbcSTvrRR5wdAQcBY4o7j//vfZhzJkapnEv677FXl1qgXFmUupGr7S6nOd/IOiwxu8S+eOrE7UTunHlSagV4AlfNHy1/5Q5UpjXvbPl/dDNFoN98dQjZU46jsot/5b08Pfbu8gfvzfWRzDQ6qZloAdgwvQH0u9lyzwibCv3KsxorYBu7q/HnltkFiNLlh4U5AVnhGZNgKMGLz+KPnLY68Hba//nWjAbnkYnfRYjMl4NZGyULIwVKGILzCB8Ytv+TVuyYb/hwSIBLUwgSsN/t5TjQGXnCo=
 jobs:
   include:
   - stage: Tests
   - python: 3.6
-    env: TOXENV=py36
+    env:
+    - TOXENV=py36
     install: &install
     - pip install tox numpy scipy scikit-learn matplotlib seaborn
     script: &script
     - tox
     - pip install git+https://github.com/chlorochrule/cknn
   - python: 3.7
-    env: TOXENV=py37
+    env:
+    - TOXENV=py37
     install: *install
     script: *script
   - stage: Deploy
     name: Publish docs
+    env:
+    - secure: PQ5k5M4LSCMMxNWFkViVTHNjDRDE+khcFFuRhM2FgYGm9S+HdA6HBkcxPYWP/zcVF0531HeMR7+HIB7axbzvA3ZPnnEOTr36Al7GufTEeP+dJ4yp35Ydj9H41jAk/VOoXwyhV86EYTQjP5lyDnWQe6BBoxh0DHuWfGz/HMj6rXO18dRIBLTOc0rqthsOMUFydCrhabJaR9eD8OnGy46H805RULNsCK/6hhBHthCthq6XsTP1OuaAkQDUGzUiN7Fj4UJBX4axOw5uhuKNz0sG6dTCLgxlDFcpib65YFzb9c7RgORbSXcSFtqPwufZpxa9DlOJsPXypyDYf50JlFIEpl9hvmHWe17GrrFuurT5IHRbPa6lAm/bWDd2z6sS3TaxdzxEQ9O3yyWra0MbcSTvrRR5wdAQcBY4o7j//vfZhzJkapnEv677FXl1qgXFmUupGr7S6nOd/IOiwxu8S+eOrE7UTunHlSagV4AlfNHy1/5Q5UpjXvbPl/dDNFoN98dQjZU46jsot/5b08Pfbu8gfvzfWRzDQ6qZloAdgwvQH0u9lyzwibCv3KsxorYBu7q/HnltkFiNLlh4U5AVnhGZNgKMGLz+KPnLY68Hba//nWjAbnkYnfRYjMl4NZGyULIwVKGILzCB8Ytv+TVuyYb/hwSIBLUwgSsN/t5TjQGXnCo=
     script:
     - '[ "$TRAVIS_BRANCH" == master ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && bash ./deploy.sh'
