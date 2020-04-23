@@ -16,4 +16,5 @@ git config user.name "Travis-CI"
 
 git add .
 git commit -m "[ci skip] Update docs"
-git push --quit --force https://${GITHUB_TOKEN}@github.com/chlorochrule/cknn.git master:gh-pages >/dev/null 2>&1
+git remote add origin https://${GITHUB_TOKEN}@github.com/chlorochrule/cknn.git
+git push --quit --force origin master:gh-pages >/dev/null 2>&1
