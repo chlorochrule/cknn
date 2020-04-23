@@ -12,7 +12,7 @@ jobs:
     env:
     - TOXENV=py36
     install: &install
-    - pip install tox numpy scipy scikit-learn matplotlib seaborn
+    - pip install tox numpy scipy scikit-learn matplotlib seaborn sphinx sphinx_rtd_theme
     script: &script
     - tox
     - pip install git+https://github.com/chlorochrule/cknn
