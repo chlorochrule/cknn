@@ -8,10 +8,6 @@ branches:
   only:
     - master
 
-python:
-  - 3.6
-  - 3.7
-
 matrix:
   include:
     - python: '3.6'
