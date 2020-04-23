@@ -28,4 +28,4 @@ jobs:
     install:
     - pip install sphinx sphinx_rtd_theme
     script:
-    - '[ "$TRAVIS_BRANCH" == master ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && bash ./deploy.sh'
+    - '[ "$TRAVIS_BRANCH" == master ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && source ./deploy.sh'
