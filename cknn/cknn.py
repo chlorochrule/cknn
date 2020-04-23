@@ -6,7 +6,7 @@ from scipy.spatial.distance import pdist, squareform
 
 
 def cknneighbors_graph(X, n_neighbors, delta=1.0, metric='euclidean', t='inf',
-                       include_self=False, is_sparse=True, 
+                       include_self=False, is_sparse=True,
                        return_instance=False):
 
     cknn = CkNearestNeighbors(n_neighbors=n_neighbors, delta=delta,
@@ -42,7 +42,7 @@ class CkNearestNeighbors(object):
 
                 W_{ij} = exp(-(||x_{i}-x_{j}||^2)/t)
 
-            For more infomation, read the paper 'Laplacian Eigenmaps for 
+            For more infomation, read the paper 'Laplacian Eigenmaps for
             Dimensionality Reduction and Data Representation', Belkin, et. al.
 
         include_self: bool, optional, default=True
@@ -53,7 +53,7 @@ class CkNearestNeighbors(object):
             parameter is True else returns ndarray object.
     """
 
-    def __init__(self, n_neighbors=5, delta=1.0, metric='euclidean', t='inf', 
+    def __init__(self, n_neighbors=5, delta=1.0, metric='euclidean', t='inf',
                  include_self=False, is_sparse=True):
         self.n_neighbors = n_neighbors
         self.delta = delta
@@ -65,7 +65,7 @@ class CkNearestNeighbors(object):
 
     def cknneighbors_graph(self, X):
         """A method to calculate the CkNN graph
-        
+
         Args:
             X: ndarray
                 The data matrix.
@@ -127,4 +127,3 @@ class CkNearestNeighbors(object):
             self.ckng = neigh.toarray()
 
         return self.ckng
-
