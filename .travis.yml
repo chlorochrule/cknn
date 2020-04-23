@@ -27,6 +27,8 @@ jobs:
     python: 3.7
     install:
     - pip install sphinx sphinx_rtd_theme
+    - pip install tox numpy scipy scikit-learn matplotlib seaborn
+    - pip install git+https://github.com/chlorochrule/cknn
     script:
     - '[ "$TRAVIS_BRANCH" == master ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] &&
       source ./deploy.sh'
