@@ -4,27 +4,27 @@ dist: xenial
 branches:
   only:
   - master
-env:
+env: 
 jobs:
   include:
   - stage: Tests
     python: 3.6
     env:
     - TOXENV=py36
-    install: &install
+    install: &1
     - pip install tox numpy scipy scikit-learn matplotlib seaborn
-    script: &script
+    script: &2
     - tox
     - pip install git+https://github.com/chlorochrule/cknn
   - python: 3.7
     env:
     - TOXENV=py37
-    install: *install
-    script: *script
+    install: *1
+    script: *2
   - stage: Deploy
     python: 3.7
     env:
-    - secure: PQ5k5M4LSCMMxNWFkViVTHNjDRDE+khcFFuRhM2FgYGm9S+HdA6HBkcxPYWP/zcVF0531HeMR7+HIB7axbzvA3ZPnnEOTr36Al7GufTEeP+dJ4yp35Ydj9H41jAk/VOoXwyhV86EYTQjP5lyDnWQe6BBoxh0DHuWfGz/HMj6rXO18dRIBLTOc0rqthsOMUFydCrhabJaR9eD8OnGy46H805RULNsCK/6hhBHthCthq6XsTP1OuaAkQDUGzUiN7Fj4UJBX4axOw5uhuKNz0sG6dTCLgxlDFcpib65YFzb9c7RgORbSXcSFtqPwufZpxa9DlOJsPXypyDYf50JlFIEpl9hvmHWe17GrrFuurT5IHRbPa6lAm/bWDd2z6sS3TaxdzxEQ9O3yyWra0MbcSTvrRR5wdAQcBY4o7j//vfZhzJkapnEv677FXl1qgXFmUupGr7S6nOd/IOiwxu8S+eOrE7UTunHlSagV4AlfNHy1/5Q5UpjXvbPl/dDNFoN98dQjZU46jsot/5b08Pfbu8gfvzfWRzDQ6qZloAdgwvQH0u9lyzwibCv3KsxorYBu7q/HnltkFiNLlh4U5AVnhGZNgKMGLz+KPnLY68Hba//nWjAbnkYnfRYjMl4NZGyULIwVKGILzCB8Ytv+TVuyYb/hwSIBLUwgSsN/t5TjQGXnCo=
+    - secure: BZ/ZF0Hzo7qo1jZLYrL6W9dXisGxpoQ+VWV7jeEYn/HcnEroJvS9koxU68uWsgchl/AGXINdu09KDLToe65SR92DQZY/umYcFgTLShaTwqFmimTbNkYZzLNTYFv0w2GqR/WIYWe395a7wkTOFn7Ztoo73x8iEi0copWHf+4o+4tBNZ2tnzq8xyRzgJMcm+wKbELLRnnxdURc2da5TTn25kMBkwzQroOsfi4JQMXGLZoM/itNgcpZwAJLLJ6R0kcl1yA5umQDVl/PRHbl/8KP6J10KXD+gUnokXuSOHNCq8AiDnmYSQY/r4AOr9gQicaa9+0UyCLueglHV/lz5B0ZWuLF7H0P8PpMeQIGLSx2+89rFO8N2eL6BLJLbtfW5q1ah+mQCH5nbicPyvPAk9VX8JfSZHCC+sD604XuIJWH6CU+2PhQBZMipoagadUHg3fERndjr/fsG3WjNDWBEBRKSqP0sVJJmru7P+VzfGrUs8X7qZfk6XjG8lC4tKHMqlh7UgV5115MWYDtoF9kxDtyifKX/OYzh3c410LX1KjUXmI1zGhgTjD9/YMHzmItoPKpNdYgz8BRF2LuxuzVxt3vGb1Q6/jU9fvQETprz8yWi3RjOdD7W58lK5ScxHi2T9NXgxoAlkv7rfzf/9q641bQde1Ipx7tU4Agf2nvmNCveAM=
     install:
     - pip install sphinx sphinx_rtd_theme
     script:
