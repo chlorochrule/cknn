@@ -14,4 +14,5 @@ git config user.name "Travis-CI"
 
 git add .
 git commit -m "[ci skip] Update docs"
+[ -z $GITHUB_TOKEN ] && echo GITHUB_TOKEN is empty!!
 git push --quit --force https://${GITHUB_TOKEN}@github.com/chlorochrule/cknn.git master:gh-pages >/dev/null 2>&1
