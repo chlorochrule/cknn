@@ -1,6 +1,6 @@
 # Continuous k-Nearest Neighbors in Python
 
-**Note:** This package supports Python 3.5 or newer.
+**Note:** This package supports Python 3.6 or newer.
 
 This is a Python implementation of Continuous k-Nearest Neighbors(CkNN)
 proposed in the paper 'Consistent Manifold Representation for Topological Data 
