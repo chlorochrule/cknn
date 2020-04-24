@@ -7,6 +7,8 @@ cd docs
 make html
 cd _build/html
 
+touch .nojekyll
+
 git init
 
 git config user.email "minami.polly@gmail.com"
